@@ -1,3 +1,4 @@
+<div class="container">
 <div *ngFor="let question of questions">
   <h4>{{question.questionName}}</h4>
   <div *ngIf="question.questionType === questionTypeEnum.Checkbox">
@@ -13,3 +14,4 @@
 <a [routerLink]="['/form/builder']">
   Back to form builder
 </a>
+</div>
