@@ -1,0 +1,15 @@
+<div *ngFor="let question of questions">
+  <h4>{{question.questionName}}</h4>
+  <div *ngIf="question.questionType === questionTypeEnum.Checkbox">
+    <ul>
+      <li *ngFor="let answer of question.answers | checkedAnswer"> {{answer.name ==='Other' ? answer.otherAnswer :
+        answer.name }}</li>
+    </ul>
+  </div>
+  <div *ngIf="question.questionType === questionTypeEnum.Paragraph">
+    <p>{{question.pragraphAnswers}}</p>
+  </div>
+</div>
+<a [routerLink]="['/form/builder']">
+  Back to form builder
+</a>

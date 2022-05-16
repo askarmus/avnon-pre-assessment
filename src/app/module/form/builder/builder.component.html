@@ -1,0 +1,27 @@
+<div class="container">
+  <div *ngFor="let question of questions ; let index = index; trackBy:trackByIndex;">
+    <h4>{{question.questionName}}</h4>
+    <div *ngIf="question.questionType === questionTypeEnum.Paragraph">
+      <textarea class="form-control" [(ngModel)]="question.pragraphAnswers" rows="3"></textarea>
+    </div>
+    <div *ngIf="question.questionType === questionTypeEnum.Checkbox">
+      <div *ngFor="let answer of question.answers;let index = index;trackBy:trackByIndex;">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="question.answers[index].isChecked">
+          <label class="form-check-label" for="flexCheckDefault">
+            {{answer.name}}
+          </label>
+        </div>
+        <input *ngIf="question.answers[index].isChecked && question.answers[index].name ==='Other'" type="text" class="form-control"  [(ngModel)]="question.answers[index].otherAnswer"  placeholder="Type other answer here" />
+      </div>
+    </div>
+  </div>
+  <div class="mt-5">
+    <button type="button" (click)="showConfirm()" class="btn btn-success  float-end">Add New Question</button>
+  </div>
+    <a *ngIf="questions.length > 0 " [routerLink]="['/form/answers']" >
+      Review my answers
+    </a>
+</div>
+
+{{ questions | json }}

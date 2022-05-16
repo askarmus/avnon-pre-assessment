@@ -1,0 +1,41 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Question</h4>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <select class="form-select" formControlName="questionType" (change)="onQuestionTypeChange($event.target.value)">
+                        <option *ngFor="let type of questionTypes" [ngValue]="type">
+                            {{ type }}
+                        </option>
+                    </select>
+                    <p *ngIf="f.questionType?.touched && f.questionType?.invalid" style="color: red">Choose Question Type</p>
+
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="questionName" formControlName="questionName" placeholder="Enter question name" />
+                    <p *ngIf="f.questionName?.touched && f.questionName?.errors?.required" style="color: red">Name field is required</p>
+                </div>
+                <div    formArrayName="answers">
+                    <ng-container *ngFor="let row of f?.answers['controls']; let i = index">
+                        <div [formGroupName]="i">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="name" formControlName="name" placeholder="Type question here" />
+                                <p *ngIf="row?.controls?.name?.touched && row?.controls?.name?.errors?.required" style="color: red">Name field is required</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <button type="button" class="btn btn-link" *ngIf="f.questionType?.value === 'Checkbox'" (click)="addItem()">+ Add another answer</button>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+ 
